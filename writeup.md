@@ -1,8 +1,4 @@
-#**Traffic Sign Recognition** 
-
-##Writeup Template
-
-###You can use this file as a template for your writeup if you want to submit it as a markdown file, but feel free to use some other method and submit a pdf if you prefer.
+# **Traffic Sign Recognition** 
 
 ---
 
@@ -52,15 +48,15 @@ The goals / steps of this project are the following:
 
 ## Rubric Points
 
-###Writeup / README
+### Writeup / README
 
-####1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
+#### 1. Provide a Writeup / README that includes all the rubric points and how you addressed each one. You can submit your writeup as markdown or pdf. You can use this template as a guide for writing the report. The submission includes the project code.
 
 You're reading it! and here is a link to my [project code](./Traffic_Sign_Classifier.ipynb)
 
-###Data Set Summary & Exploration
+### Data Set Summary & Exploration
 
-####1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
+#### 1. Provide a basic summary of the data set. In the code, the analysis should be done using python, numpy and/or pandas methods rather than hardcoding results manually.
 
 I used the numpy library to calculate summary statistics of the traffic
 signs data set:
@@ -71,7 +67,7 @@ signs data set:
 * The shape of a traffic sign image is (32, 32, 3)
 * The number of unique classes/labels in the data set is 43
 
-####2. Include an exploratory visualization of the dataset.
+#### 2. Include an exploratory visualization of the dataset.
 
 I've started data visualization with showing images themselves. Here are 5 random images from the test set with their class labels.
 
@@ -106,9 +102,9 @@ This shows that class distribution is pretty similar between sets. Let's explore
 	Most common label is 2 with share of 5.938242%
 	Least common label is 0 with share of 0.475059%
 
-###Design and Test a Model Architecture
+### Design and Test a Model Architecture
 
-####1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
+#### 1. Describe how you preprocessed the image data. What techniques were chosen and why did you choose these techniques? Consider including images showing the output of each preprocessing technique. Pre-processing refers to techniques such as converting to grayscale, normalization, etc. (OPTIONAL: As described in the "Stand Out Suggestions" part of the rubric, if you generated additional data for training, describe why you decided to generate additional data, how you generated the data, and provide example images of the additional data. Then describe the characteristics of the augmented training set like number of images in the set, number of images for each class, etc.)
 
 I did not choose grayscale as the first step, because I believed that color contains the crucial information about street signs and discarding color would make them less recognizable by the model. 
 
@@ -169,7 +165,7 @@ The image size is increased using image resize fry SciPy library and then we cro
 
 Modified images are added to the training dataset using the same labels as original ones. This makes training dataset two times larger.
 
-####2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
+#### 2. Describe what your final model architecture looks like including model type, layers, layer sizes, connectivity, etc.) Consider including a diagram and/or table describing the final model.
 
 My final model consisted of the following layers:
 
@@ -192,13 +188,13 @@ My final model consisted of the following layers:
 | Dropout				| 0.5 pass through probability
 | Fully connected	| From 252 to 43
 
-####3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
+#### 3. Describe how you trained your model. The discussion can include the type of optimizer, the batch size, number of epochs and any hyperparameters such as learning rate.
 
 The final model is trained on `30` epochs with batch size `128` and learning rate `0.0005`. Compared to the original LeNet architecture batch size is the same and learning rate is lower and number of epochs is higher (I describe below how I ended up with these values). Also another hyper-parameter is dropout pass-through rate, which is `0.5` during training.
 
 I've kept the original Adam optimizer, it seems to do a good job with this model. 
 
-####4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
+#### 4. Describe the approach taken for finding a solution and getting the validation set accuracy to be at least 0.93. Include in the discussion the results on the training, validation and test sets and where in the code these were calculated. Your approach may have been an iterative process, in which case, outline the steps you took to get to the final solution and why you chose those steps. Perhaps your solution involved an already well known implementation or architecture. In this case, discuss why you think the architecture is suitable for the current problem.
 
 My final model results were:
 
@@ -216,7 +212,7 @@ Here is how I came up with the final network architecture:
 * Another attempt on grayscale images was to use weighted color components (to mimic human color perception). This made things better with validation accuracy between `0.975` and `0.985` on different training runs.
 * Finally, while model was still the same I've trained it again with added zoomed images. Validation score was essentially the same.
 
-####Evaluating model performance on a test set
+#### Evaluating model performance on a test set
 
 As I mentioned previously, this model got `96.8%` accuracy on a test set. To understand this performance better I've decided to calculate precision and recall for each street sign type in our set.
 
@@ -255,9 +251,9 @@ Here is a histogram of bottom 5 precision and recall results for the test set.
 
 ![Bottom 5 recall][worst_recall]
 
-###Test a Model on New Images
+### Test a Model on New Images
 
-####1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
+#### 1. Choose five German traffic signs found on the web and provide them in the report. For each image, discuss what quality or qualities might be difficult to classify.
 
 Here are twelve German traffic signs that I found on the web:
 
@@ -268,7 +264,7 @@ Signs here are easily recognizable by the human eye, but our model might have a 
 
 Also there could be problems in classifying `70km/h speed limit` sign. It has the same general characteristics as the other speed limit signs and the model might confuse it with a different speed limit.
 
-####2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
+#### 2. Discuss the model's predictions on these new traffic signs and compare the results to predicting on the test set. At a minimum, discuss what the predictions were, the accuracy on these new predictions, and compare the accuracy to the accuracy on the test set (OPTIONAL: Discuss the results in more detail as described in the "Stand Out Suggestions" part of the rubric).
 
 Here are the results of the prediction:
 
@@ -297,7 +293,7 @@ Precision=98.46%, recall=96.97%
 
 Those are not the lowest precision and recall on the test set, so I can only say that probably the new image we tested on was different from the ones in train/test set. May be the framing of the sign or a font used for `70` was different. This means that this model still needs work to be better.
 
-####3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
+#### 3. Describe how certain the model is when predicting on each of the five new images by looking at the softmax probabilities for each prediction. Provide the top 5 softmax probabilities for each image along with the sign type of each probability. (OPTIONAL: as described in the "Stand Out Suggestions" part of the rubric, visualizations can also be provided such as bar charts)
 
 Here is the code I used to calculate softmax probability for the new images:
 
@@ -328,7 +324,7 @@ After printing the probabilities I saw that most of them were `99.9%` to `100%` 
 As you can see, the second best prediction of the model (with probability of `24.2%`) was a correct class (70km/h). And as I suspected, the model sees all speed limit classes similarly because top 5 consists only of the speed limit classes.
 
 ### (Optional) Visualizing the Neural Network (See Step 4 of the Ipython notebook for more details)
-####1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
+#### 1. Discuss the visual output of your trained network's feature maps. What characteristics did the neural network use to make classifications?
 
 Using the provided visualisation code I've visualized the output of the first convolution layer on one of the images (the first one among the new images I tested on). Here how it looks like:
 
