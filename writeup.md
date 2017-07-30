@@ -142,7 +142,7 @@ def to_grayscale(im, weights = np.c_[0.2989, 0.5870, 0.1140]):
     return np.sum(tile * im, axis=2)
 ```
 
-Training with images transformed to gray this way produced jigher validation results, so I kept this. And here is a small vizualization of difference between those images:
+Training with images transformed to gray this way produced higher validation results, so I kept this. And here is a small vizualization of difference between those images:
 
 ![Gray image source][gray_source] ![Gray image mean][gray_mean] ![Gray image weighted][gray_weighted]
 
@@ -159,7 +159,7 @@ def zoom_image(image, ratio=1.2):
     return zoomed[crop_index:crop_index + image.shape[0], crop_index:crop_index + image.shape[1],:]
 ```
 
-The image size is increased using image resize fry SciPy library and then we crop it back to the original size. At the end we get something like this:
+The image size is increased using image resize from SciPy library and then we crop it back to the original size. At the end we get something like this:
 
 ![Zoom before][zoom_before] ![Zoom after][zoom_after]
 
@@ -204,10 +204,10 @@ My final model results were:
 
 Here is how I came up with the final network architecture:
 
-* Initial training was run on the original LeNet architecture. The only change was increasing input dimensionality to `32x32x3` (first training was done on color images) and output dimensionality to `43` (we have `43` classes for signs). Validation accuracy for this model was `0.903`.
-* Next I trippled the size of the model. I did it because color images has three times more data. So I've increased output of the first convolutional layer to have depth of `18`, the second to `48` and so on. Validation accuracy on this model was `0.943`.
+* Initial training was run on the original LeNet architecture. The only change was increasing input dimensionality to `32x32x3` (at first training was done on color images) and output dimensionality to `43` (we have `43` classes for signs). Validation accuracy for this model was `0.903`.
+* Next I trippled the size of the model. I did it because color images have three times more data. So I've increased output of the first convolutional layer to have a depth of `18`, the second to `48` and so on. Validation accuracy on this model was `0.943`.
 * Then I've tried to recude learning rate (to `0.0005`), model began to train slower, so I've increased the number of epochs to `30`. Validation accuracy increased a little to `0.951`.
-* One thing I noticed at this point was that training accuracy quickly reached `1.000` (on first 10 epochs or so), so to combat overfitting to the data I've added 3 dropout layers (before each of the fully connected layers). After these layers were added training still reached `1.000` accuracy, but this time it was much later (near 30th epoch). Validation accuracy reached `0.971`.
+* One thing I noticed at this point was that training accuracy quickly reached `1.000` (after the first 10 epochs or so), so to combat overfitting to the training data I've added 3 dropout layers (before each of the fully connected layers). After these layers were added training still reached `1.000` accuracy, but this time it was much later (near the 30th epoch). Validation accuracy reached `0.971`.
 * Only then I've tried converting images to grayscale. The first approach (as mentioned earlier) was to average all color components. Also to work with grayscale images I've reduced input dimensionality to `32x32x1`. This did not go as well and validation score dropped to `0.962`.
 * Another attempt on grayscale images was to use weighted color components (to mimic human color perception). This made things better with validation accuracy between `0.975` and `0.985` on different training runs.
 * Finally, while model was still the same I've trained it again with added zoomed images. Validation score was essentially the same.
